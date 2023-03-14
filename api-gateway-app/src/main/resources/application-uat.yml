@@ -1,0 +1,18 @@
+apollo:
+  meta: http://168.62.5.81:8080,http://168.62.5.84:8080
+app:
+  id: api-gateway.43f2fb6cf2034ea3897dba04efb06802
+
+authenticate:
+  heimdall:
+    # 奥体：168.11.73.29 吉山：168.15.69.167
+    sdkUrl: 168.62.3.64:8888
+    identityType: 10
+    level: 1
+    cid: 02df65c63ce544debf37f42769b8a892
+facade:
+  server:
+    list: 168.62.9.70:7008,168.62.9.71:7008
+error:
+  detail:
+    enable: false

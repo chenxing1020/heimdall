@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.xchen.heimdall.devtools.service.app.dao.DubboServiceDAO">
+    <select id="selectIdsByProjectId" resultType="java.lang.Integer">
+        SELECT id
+        FROM dubbo_service
+        WHERE project_id = #{projectId}
+        AND delete_time = '1970-01-01 00:00:00'
+    </select>
+</mapper>

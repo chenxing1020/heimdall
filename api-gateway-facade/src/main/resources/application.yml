@@ -1,0 +1,19 @@
+# 应用的公共配置，编写该应用的特定信息
+
+spring:
+  profiles:
+    active: at # 本地默认，启动时需指定环境参数
+  application:
+    name: facade-service
+
+platformEnv: ${spring.profiles.active}
+
+rest:
+  template:
+    timeout:
+      read: 30000
+      connect: 30000
+
+dubbo:
+  registry:
+    address: ${dubbo.registry.address.business}

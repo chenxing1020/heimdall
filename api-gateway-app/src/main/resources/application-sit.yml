@@ -1,0 +1,15 @@
+apollo:
+  meta: http://168.63.117.42:8080,http://168.63.117.43:8080,http://168.63.117.44:8080
+app:
+  id: api-gateway.43f2fb6cf2034ea3897dba04efb06802
+
+authenticate:
+  heimdall:
+    sdkUrl: 168.63.69.110:8888,168.63.65.209:8888
+    identityType: 10
+    level: 1
+    cid: 02df65c63ce544debf37f42769b8a892
+
+facade:
+  server:
+    list: 168.64.10.81:7008,168.64.10.82:7008

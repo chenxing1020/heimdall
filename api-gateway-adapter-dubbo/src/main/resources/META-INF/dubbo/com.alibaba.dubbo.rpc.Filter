@@ -1,0 +1,3 @@
+dubboProviderExceptionBypassFilter=com.xchen.heimdall.dubbo.extension.DubboProviderExceptionBypassFilter
+dubboProviderFilter=com.xchen.heimdall.dubbo.extension.DubboProviderFilter
+dubboConsumerFilter=com.xchen.heimdall.dubbo.extension.DubboConsumerFilter

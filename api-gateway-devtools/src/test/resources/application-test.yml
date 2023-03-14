@@ -1,0 +1,19 @@
+dubbo:
+  registry:
+    address: zookeeper://168.61.2.23:12181?backup=168.61.2.24:12181,168.61.2.25:12181
+
+datasource:
+  url: jdbc:mysql://127.0.0.1:3306/devtools_db?useUnicode=true&characterEncoding=utf-8&zeroDateTimeBehavior=convertToNull&allowMultiQueries=true
+  username: root
+  password: xxxxx
+
+apollo:
+  portalUrl: http://168.61.11.7:8070/apollo
+  token: 8399a4085061cd019afa9f0554cda0253618d7f7
+  appId: api-gateway.43f2fb6cf2034ea3897dba04efb06802
+
+config:
+  absoluteHomePath: D:\testDMT
+  modulePath: dubbo-api\src\main\java
+  basePackagePath: com.xchen.heimdall.dubbo.api.
+  mavenHome: D:/Program Files/apache-maven-3.6.2/

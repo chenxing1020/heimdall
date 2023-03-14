@@ -1,0 +1,12 @@
+apollo:
+  meta: http://168.61.11.7:8085
+  cluster: at
+app:
+  id: api-gateway.43f2fb6cf2034ea3897dba04efb06802
+server:
+  listenPort: 7008
+  handler:
+    threadSize: 16
+dubbo:
+  registry:
+    address: zookeeper://168.61.2.23:2181?backup=168.61.2.24:2181,168.61.2.25:2181

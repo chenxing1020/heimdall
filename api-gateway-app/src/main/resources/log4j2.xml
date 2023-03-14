@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration xmlns:xi="http://www.w3.org/2001/XInclude" status="INFO" monitorInterval="5">
+
+    <!-- 定义日志输出配置，打包时会被替换 -->
+    <Appenders>
+        <Console name="Console" target="SYSTEM_OUT">
+            <PatternLayout charset="UTF-8"
+                           pattern="%d{ISO8601} %-5level [%t] %c.%M(%L) %X{traceId} %X{span} - %m%n"/>
+        </Console>
+    </Appenders>
+
+    <!-- 约定引入此文件，打包时会保留 -->
+    <xi:include href="log4j2-logger.xml"/>
+
+</Configuration>

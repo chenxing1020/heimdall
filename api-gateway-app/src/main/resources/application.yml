@@ -1,0 +1,37 @@
+# 应用的公共配置，编写该应用的特定信息
+
+spring:
+  main:
+    web-application-type: reactive
+  webflux:
+    base-path: "/api"
+  profiles:
+    active: at # 本地默认，启动时需指定环境参数
+  cloud:
+    sentinel:
+      enabled: true
+      eager: true
+      log:
+        dir: /app/sentinel-log
+  application:
+    name: api-gateway-app
+  codec:
+    max-in-memory-size: 1MB
+server:
+  port: 7007
+
+platformEnv: ${spring.profiles.active}
+error:
+  detail:
+    enable: true
+user:
+  status:
+    enable: true
+    expireHours: 24
+    maximumSize: 20000
+    periodSeconds: 60
+
+metrics:
+  flushInterval: 1
+  collector:
+    monitorDataStep: 10

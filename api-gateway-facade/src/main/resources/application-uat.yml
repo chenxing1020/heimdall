@@ -1,0 +1,9 @@
+apollo:
+  meta: http://168.62.5.81:8080,http://168.62.5.84:8080
+  cluster: default
+app:
+  id: api-gateway.43f2fb6cf2034ea3897dba04efb06802
+server:
+  listenPort: 7008
+  handler:
+    threadSize: 16

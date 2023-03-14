@@ -1,0 +1,37 @@
+syntax = "proto3";
+package com.xchen.heimdall.proto;
+
+option java_package = "com.xchen.heimdall.proto";
+option java_outer_classname = "RpcModel";
+
+message RpcRequest {
+  TraceInfo traceInfo = 1;
+  RequestType requestType = 2;
+  string service = 3;
+  string method = 4;
+  string payload = 5;
+  string extFields = 6;
+}
+
+message RpcResponse {
+  TraceInfo traceInfo = 1;
+  RequestType requestType = 2;
+  int32 responseCode = 3;
+  string errorMsg = 4;
+  string data = 5;
+  string extFields = 6;
+}
+
+message TraceInfo {
+  string traceId = 1;
+  int32 span = 2;
+}
+
+enum RequestType {
+  PING = 0;
+  HEARTBEAT = 1;
+  RPC = 2;
+  REST = 3;
+  SUBSCRIBE = 4;
+  REST_RAW = 5;
+}

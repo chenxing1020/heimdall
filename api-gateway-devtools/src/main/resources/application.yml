@@ -1,0 +1,41 @@
+# 应用的公共配置，编写该应用的特定信息
+
+spring:
+  profiles:
+    active: at # 本地默认，启动时需指定环境参数
+  application:
+    name: dmt-service
+  thymeleaf:
+    mode: TEXT
+    prefix: classpath:/templates/
+    suffix: .java
+    cache: false
+
+config:
+  absoluteHomePath: /app/dmt-products-home
+#  absoluteHomePath: D:\testDMT
+  modulePath: dubbo-api\src\main\java
+  basePackagePath: com.xchen.heimdall.dubbo.api.
+  mavenHome: /usr/share/maven
+#  mavenHome: D:/Program Files/apache-maven-3.6.2/
+  git:
+    sshUrl: git@github.com:chenxing1020/common-lib.git
+    httpUrl: http://github.com/
+    branchName: master
+    accessToken: p-cqd4wAm3GDKemYT2on
+    projectId: 41566
+    projectName: common-lib
+    targetProjectId: 41453
+
+  gateway:
+    contextPath: /api
+
+app:
+  # 启动类所在的package路径
+  main-package: com.xchen.heimdall.devtools.service.app
+
+mybatis-plus:
+  # mybatis枚举类package路径
+  typeEnumsPackage: com.xchen.heimdall.dubbo.api.dmt.constant
+
+platformEnv: ${spring.profiles.active}

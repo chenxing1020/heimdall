@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.xchen.heimdall.devtools.service.app.dao.GatewayApiPermissionDAO">
+
+    <select id="selectPermissionIds" resultType="java.lang.Integer">
+        SELECT permission_id
+        FROM gateway_api_permission
+        WHERE gateway_api_id = #{gatewayApiId}
+    </select>
+
+    <select id="selectGatewayApiIds" resultType="java.lang.Integer">
+        SELECT gateway_api_id
+        FROM gateway_api_permission
+        WHERE permission_id = #{permissionId}
+    </select>
+
+    <insert id="insertBatchPermission" parameterType="java.lang.Integer">
+        INSERT INTO gateway_api_permission
+        (gateway_api_id, permission_id)
+        VALUES
+        <foreach collection="permissionIds" item="permissionId" separator=",">
+            (#{gatewayApiId}, #{permissionId})
+        </foreach>
+    </insert>
+
+    <insert id="insertBatchGatewayApi" parameterType="java.lang.Integer">
+        INSERT INTO gateway_api_permission
+        (permission_id, gateway_api_id)
+        VALUES
+        <foreach collection="gatewayApiIds" item="gatewayApiId" separator=",">
+            (#{permissionId}, #{gatewayApiId})
+        </foreach>
+    </insert>
+</mapper>

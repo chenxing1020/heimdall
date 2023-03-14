@@ -1,0 +1,13 @@
+# 加载优先级最高启动配置，编写固定配置
+
+spring:
+  datasource:
+    type: com.zaxxer.hikari.HikariDataSource
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    hikari:
+      maximum-pool-size: 10 #最大连接数，小于等于0会被重置为默认值10；大于零小于1会被重置为minimum-idle的值
+      connection-timeout: 60000  #连接超时时间:毫秒，小于250毫秒，否则被重置为默认值30秒
+      minimum-idle: 10  #最小空闲连接，默认值10，小于0或大于maximum-pool-size，都会重置为maximum-pool-size
+      idle-timeout: 500000  #空闲连接超时时间，默认值600000（10分钟），大于等于max-lifetime且max-lifetime>0，会被重置为0；不等于0且小于10秒，会被重置为10秒。
+      max-lifetime: 540000  #连接最大存活时间.不等于0且小于30秒，会被重置为默认值30分钟.设置应该比mysql设置的超时时间短
+      connection-test-query: SELECT 1    #连接测试查询

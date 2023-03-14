@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.xchen.heimdall.devtools.service.app.dao.DubboMethodDAO">
+
+    <sql id="join_select">
+        SELECT dm.*,
+        dm.db_update_time as update_time,
+        dm.owner_user_id as ownerUserId,
+        pro.id as project_id,
+        pro.project_name,
+        ds.service_name,
+        pj1.pojo_name as vo_name,
+        pj1.pojo_path as vo_path,
+        pj2.pojo_name as dto_name,
+        pj2.pojo_path as dto_path
+        FROM project pro
+        INNER JOIN dubbo_service ds on ds.project_id = pro.id
+        LEFT JOIN dubbo_method dm on dm.service_id = ds.id
+        INNER JOIN pojo pj1 on pj1.id = dm.vo_id
+        INNER JOIN pojo pj2 on pj2.id = dm.dto_id
+        WHERE pro.delete_time = '1970-01-01 00:00:00'
+        AND ds.delete_time = '1970-01-01 00:00:00'
+        AND dm.delete_time = '1970-01-01 00:00:00'
+        AND pj1.delete_time = '1970-01-01 00:00:00'
+        AND pj2.delete_time = '1970-01-01 00:00:00'
+    </sql>
+
+    <select id="listAllMethod" resultType="com.xchen.heimdall.devtools.service.app.domain.DubboMethodDetailDO">
+        <include refid="join_select"/>
+    </select>
+
+    <select id="listMethod" resultType="com.xchen.heimdall.devtools.service.app.domain.DubboMethodDetailDO">
+        <include refid="join_select"/>
+        <if test="condition.projectName != null">
+            AND pro.project_name LIKE CONCAT('%', #{condition.projectName}, '%')
+        </if>
+        <if test="condition.serviceName != null">
+            AND ds.service_name LIKE CONCAT('%', #{condition.serviceName}, '%')
+        </if>
+        <if test="condition.methodName != null">
+            AND dm.method_name LIKE CONCAT('%', #{condition.methodName}, '%')
+        </if>
+        <if test="condition.codeStatus != null">
+            AND dm.code_status = #{condition.codeStatus}
+        </if>
+        <if test="condition.gatewayApiStatus != null">
+            AND dm.gateway_api_status = #{condition.gatewayApiStatus}
+        </if>
+    </select>
+
+    <select id="listMethodByProjectName" resultType="com.xchen.heimdall.devtools.service.app.domain.DubboMethodDetailDO">
+        <include refid="join_select"/>
+        AND pro.project_name LIKE CONCAT('%', #{projectName}, '%')
+    </select>
+
+    <select id="listMethodByServiceName" resultType="com.xchen.heimdall.devtools.service.app.domain.DubboMethodDetailDO">
+        <include refid="join_select"/>
+        AND ds.service_name LIKE CONCAT('%', #{serviceName}, '%')
+    </select>
+
+    <select id="listMethodByMethodName" resultType="com.xchen.heimdall.devtools.service.app.domain.DubboMethodDetailDO">
+        <include refid="join_select"/>
+        AND dm.method_name LIKE CONCAT('%', #{methodName}, '%')
+    </select>
+
+    <select id="listMethodByServiceId" resultType="com.xchen.heimdall.devtools.service.app.domain.DubboMethodDetailDO">
+        <include refid="join_select"/>
+        AND dm.service_id = #{id}
+    </select>
+</mapper>

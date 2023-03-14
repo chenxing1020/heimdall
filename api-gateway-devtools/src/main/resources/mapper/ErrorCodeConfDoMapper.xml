@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.xchen.heimdall.devtools.service.app.dao.ErrorCodeConfigDAO">
+
+    <select id="query"
+            resultType="com.xchen.heimdall.devtools.service.app.domain.ErrorCodeConfDO">
+        SELECT t.id,
+        t.error_code,
+        t.level,
+        t.display_message,
+        t.error_reason,
+        t.solution,
+        t.project_id,
+        t.version,
+        t.create_user,
+        t.create_time,
+        t.update_user,
+        t.update_time
+        FROM t_error_code t
+        WHERE delete_time = 0
+        <if test="errorCode != null">
+            AND t.error_code = #{errorCode}
+        </if>
+        <if test="projectId != null">
+            AND t.project_id = #{projectId}
+        </if>
+        <if test="version != null">
+            AND t.version = #{version}
+        </if>
+        <if test="level != null">
+            AND t.level = #{level}
+        </if>
+        order by error_code
+    </select>
+
+    <select id="queryPage"
+            resultType="com.xchen.heimdall.devtools.service.app.dto.ErrorCodeConfDTO">
+        SELECT t.id,
+        t.error_code,
+        t.level,
+        t.display_message,
+        t.error_reason,
+        t.solution,
+        t.project_id,
+        t.version,
+        t.create_user,
+        t.create_time,
+        t.update_user,
+        t.update_time,
+        p.project_name
+        FROM t_error_code t,
+             project p
+        WHERE t.project_id = p.id
+            AND t.delete_time = 0
+            AND p.delete_time = '1970-01-01 00:00:00'
+        <if test="condition.errorCode != null">
+            AND t.error_code LIKE CONCAT(#{condition.errorCode}, '%')
+        </if>
+        <if test="condition.projectId != null">
+            AND t.project_id = #{condition.projectId}
+        </if>
+        <if test="condition.version != null">
+            AND t.version = #{condition.version}
+        </if>
+        <if test="condition.level != null">
+            AND t.level = #{condition.level}
+        </if>
+        order by error_code
+    </select>
+
+    <update id="deleteReleaseErrorCode">
+        UPDATE t_error_code t
+        SET version = #{version}
+        WHERE
+        error_code in
+        <foreach collection="codeList" item="code" index="index" open="(" close=")" separator=",">
+            #{code}
+        </foreach>
+        AND version = 'release'
+    </update>
+
+    <select id="queryChangedConfig" resultType="com.xchen.heimdall.devtools.service.app.domain.ErrorCodeConfDO">
+        SELECT t.id,
+        t.error_code,
+        t.level,
+        t.display_message,
+        t.error_reason,
+        t.solution,
+        t.project_id,
+        t.version,
+        t.create_user,
+        t.create_time,
+        t.update_user,
+        t.update_time
+        FROM t_error_code t
+        WHERE delete_time = 0
+            AND t.project_id = #{projectId}
+            AND version = 'draft'
+            AND update_time >= #{updateTime}
+    </select>
+
+    <select id="queryAllErrorCodeProject" resultType="Integer">
+        SELECT distinct t.project_id
+        FROM t_error_code t
+        WHERE delete_time = 0
+        AND version = 'draft'
+    </select>
+
+    <select id="getMaxErrorCodeOfProject" resultType="String">
+        SELECT max(error_code)
+        FROM devtools_db.t_error_code t
+        WHERE delete_time = 0
+        AND version = 'draft'
+        AND project_id = #{projectId}
+        AND level = #{level}
+    </select>
+
+</mapper>

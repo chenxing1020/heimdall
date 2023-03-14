@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <parent>
+        <groupId>com.xchen.heimdall</groupId>
+        <artifactId>api-gateway</artifactId>
+        <version>1.0.0-SNAPSHOT</version>
+    </parent>
+
+    <artifactId>api-gateway-facade</artifactId>
+
+    <properties>
+        <!-- 打包参数 -->
+        <skipAssembly>false</skipAssembly>
+        <mainClass>com.xchen.heimdall.facade.service.app.FacadeServiceApp</mainClass>
+        <!-- END 打包参数 -->
+        <api.gateway.version>1.0.0-SNAPSHOT</api.gateway.version>
+    </properties>
+
+    <dependencies>
+        <!-- 2nd PARTY LIB -->
+        <dependency>
+            <groupId>com.xchen.heimdall</groupId>
+            <artifactId>api-gateway-common</artifactId>
+            <version>${api.gateway.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.xchen.heimdall</groupId>
+            <artifactId>api-gateway-adapter-dubbo</artifactId>
+            <version>${api.gateway.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.xchen.heimdall</groupId>
+            <artifactId>api-gateway-adapter-grpc</artifactId>
+            <version>1.0.0-SNAPSHOT</version>
+        </dependency>
+
+        <!-- apollo -->
+        <dependency>
+            <groupId>com.ctrip.framework.apollo</groupId>
+            <artifactId>apollo-client</artifactId>
+            <version>1.2.0</version>
+            <exclusions>
+                <exclusion>
+                    <artifactId>slf4j-api</artifactId>
+                    <groupId>org.slf4j</groupId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+
+        <!-- JSON -->
+        <dependency>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-databind</artifactId>
+        </dependency>
+
+        <!-- protobuf -->
+        <dependency>
+            <groupId>com.google.protobuf</groupId>
+            <artifactId>protobuf-java</artifactId>
+            <version>3.19.4</version>
+        </dependency>
+
+        <!-- webclient -->
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-web</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-autoconfigure</artifactId>
+        </dependency>
+    </dependencies>
+
+</project>

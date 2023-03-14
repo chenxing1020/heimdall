@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.xchen.heimdall.devtools.service.app.dao.GatewayApiDAO">
+
+    <resultMap id="gatewayApiDTO" type="com.xchen.heimdall.devtools.service.app.dto.GatewayApiDTO" autoMapping="true">
+        <result column="access_point_list" property="accessPointList"
+                typeHandler="com.baomidou.mybatisplus.extension.handlers.JacksonTypeHandler"/>
+    </resultMap>
+    <sql id="join_select">
+        SELECT ga.*,
+        ds.id as serviceId,
+        ds.service_name,
+        ds.simple_service_name,
+        ds.service_path,
+        ds.registry_zk_cluster,
+        ds.provider_version,
+        ds.provider_group,
+        ds.timeout,
+        dm.id as methodId,
+        dm.method_name,
+        dm.api_desc,
+        dm.vo_wrapper_type,
+        dm.dto_wrapper_type,
+        pro.id as project_id,
+        pro.project_name,
+        pj.pojo_name as vo_name,
+        pj.pojo_path as voPath
+        FROM gateway_api ga,
+        dubbo_method dm,
+        dubbo_service ds,
+        project pro,
+        pojo pj
+        WHERE ga.method_id = dm.id
+        AND dm.service_id = ds.id
+        AND dm.vo_id = pj.id
+        AND ds.project_id = pro.id
+        AND ga.delete_time = '1970-01-01 00:00:00'
+        AND dm.delete_time = '1970-01-01 00:00:00'
+        AND ds.delete_time = '1970-01-01 00:00:00'
+        AND pro.delete_time = '1970-01-01 00:00:00'
+    </sql>
+
+    <select id="listAllDubboGatewayApi" resultMap="gatewayApiDTO">
+        <include refid="join_select"/>
+        AND ga.upstream_channel_type = 1
+    </select>
+
+    <select id="listUnsyncedDubboGatewayApi" resultMap="gatewayApiDTO">
+        <include refid="join_select"/>
+        AND ga.upstream_channel_type = 1
+        AND ga.synced = 0
+    </select>
+
+    <select id="findDetails" resultMap="gatewayApiDTO">
+        <include refid="join_select"/>
+        AND ga.id = #{id}
+    </select>
+
+    <select id="listDubboGatewayApi" resultMap="gatewayApiDTO">
+        <include refid="join_select"/>
+        AND ga.upstream_channel_type = 1
+        <if test="condition.synced != null">
+            AND ga.synced = ('%', #{condition.synced}, '%')
+        </if>
+        <if test="condition.accessPoint != null">
+            AND JSON_CONTAINS(ga.access_point_list, CONCAT('"',#{condition.accessPoint},'"'))
+        </if>
+    </select>
+
+    <select id="listDubboGatewayApiByBatchIds" resultMap="gatewayApiDTO">
+        <include refid="join_select" />
+        AND ga.id in
+        <foreach collection="ids" item="id" open="(" close=")" separator=",">
+            #{id}
+        </foreach>
+    </select>
+
+    <update id="updateBatchGatewayApiSynced">
+        <foreach collection="gatewayApiIds" item="gatewayApiId" separator=";">
+            UPDATE gateway_api ga
+            SET synced = #{synced}
+            WHERE delete_time = '1970-01-01 00:00:00' AND id = #{gatewayApiId}
+        </foreach>
+    </update>
+
+</mapper>

@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<Loggers>
+    <!-- 此部分配置不要修改，打包会自动替换 -->
+    <Root level="INFO" includeLocation="true">
+        <AppenderRef ref="Console"/>
+    </Root>
+
+    <!-- 指定日志级别，可自由指定 -->
+    <Logger name="com.xchen.heimdall" level="DEBUG" additivity="true"/>
+
+    <Logger name="org.springframework" level="WARN" additivity="true"/>
+    <Logger name="org.apache.dubbo" level="WARN" additivity="true"/>
+    <Logger name="com.alibaba.spring" level="WARN" additivity="true"/>
+    <Logger name="org.apache.dubbo.config.AbstractConfig" level="ERROR" additivity="true"/>
+</Loggers>

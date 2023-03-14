@@ -1,0 +1,26 @@
+apollo:
+  meta: http://168.9.26.28:8080,http://168.9.26.29:8080,http://168.15.77.196:8080,http://168.15.77.197:8080
+app:
+  id: api-gateway.43f2fb6cf2034ea3897dba04efb06802
+
+authenticate:
+  heimdall:
+    # 奥体：168.11.73.29 吉山：168.15.69.167
+    sdkUrl: 168.11.73.29:11022,168.15.69.167:11022
+    identityType: 10
+    level: 1
+    cid: 85e84d4039825ca2e77863f2bdbbc228
+  link:
+    app:
+      corpId: wwd53282142c96185d
+      secret: qRMk4jHnjohES5fYtSeknFYzChdFeqpFALeb7bm9K4s
+facade:
+  server:
+    list: 168.70.8.154:7007,168.70.8.155:7007
+error:
+  detail:
+    enable: false
+spring:
+  cloud:
+    sentinel:
+      enabled: false
