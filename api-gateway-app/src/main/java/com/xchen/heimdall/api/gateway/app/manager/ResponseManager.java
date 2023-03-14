@@ -3,6 +3,7 @@ package com.xchen.heimdall.api.gateway.app.manager;
 import com.xchen.heimdall.api.gateway.app.model.ResultModel;
 import com.xchen.heimdall.common.util.JacksonUtil;
 import reactor.core.publisher.Mono;
+import reactor.core.scheduler.Schedulers;
 
 import java.util.function.Supplier;
 
@@ -16,9 +17,9 @@ public class ResponseManager {
 
     public static <T> Mono<ResultModel<T>> pack(Supplier<? extends T> supplier) {
         // 打包请求成功的返回包装
-        return Mono.fromSupplier(() ->
-                ResultModel.success(supplier.get())
-        );
+        // 更新为reactor中的弹性线程池，核心线程数为cpu核数 * 10
+        return Mono.fromCallable(() -> ResultModel.success((T) supplier.get()))
+                .subscribeOn(Schedulers.boundedElastic());
     }
 
     public static String packAsJson(Integer code, String msg) {
