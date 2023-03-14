@@ -5,7 +5,6 @@ import com.xchen.heimdall.common.api.ApolloDubboApiDTO;
 import com.xchen.heimdall.common.api.ApolloGatewayApiDTO;
 import com.xchen.heimdall.common.api.ApolloGrpcApiDTO;
 import com.xchen.heimdall.common.api.ApolloRestApiDTO;
-import com.xchen.heimdall.dubbo.api.facade.service.IFacadeService;
 import com.xchen.heimdall.common.exception.errorcode.BadRequestException;
 import lombok.extern.slf4j.Slf4j;
 

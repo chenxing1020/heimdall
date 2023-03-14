@@ -8,7 +8,7 @@ import com.auth0.jwt.interfaces.JWTVerifier;
 import com.github.benmanes.caffeine.cache.Caffeine;
 import com.github.benmanes.caffeine.cache.LoadingCache;
 import com.xchen.heimdall.common.exception.errorcode.*;
-import com.xchen.heimdall.dubbo.api.gateway.model.UserLoginModel;
+import com.xchen.heimdall.api.gateway.app.model.UserLoginModel;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Value;

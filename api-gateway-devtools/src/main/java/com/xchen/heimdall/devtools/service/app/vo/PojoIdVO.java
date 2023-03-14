@@ -1,6 +1,5 @@
 package com.xchen.heimdall.devtools.service.app.vo;
 
-import com.xchen.heimdall.dubbo.api.common.vo.UserIdVO;
 import lombok.*;
 
 import javax.validation.constraints.NotNull;

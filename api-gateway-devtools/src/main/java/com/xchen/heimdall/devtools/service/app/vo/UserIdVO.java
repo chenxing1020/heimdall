@@ -1,4 +1,4 @@
-package com.xchen.heimdall.dubbo.api.common.vo;
+package com.xchen.heimdall.devtools.service.app.vo;
 
 import io.swagger.annotations.ApiModelProperty;
 import lombok.AllArgsConstructor;

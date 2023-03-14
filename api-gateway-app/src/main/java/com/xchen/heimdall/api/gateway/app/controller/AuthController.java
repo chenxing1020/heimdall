@@ -5,7 +5,7 @@ import com.xchen.heimdall.api.gateway.app.manager.AuthManager;
 import com.xchen.heimdall.api.gateway.app.manager.ResponseManager;
 import com.xchen.heimdall.api.gateway.app.model.*;
 import com.xchen.heimdall.api.gateway.app.util.HttpHeaderUtils;
-import com.xchen.heimdall.dubbo.api.gateway.model.UserLoginModel;
+import com.xchen.heimdall.api.gateway.app.model.UserLoginModel;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.server.reactive.ServerHttpRequest;
 import org.springframework.web.bind.annotation.*;
@@ -23,7 +23,7 @@ public class AuthController {
     @Resource
     private AuthManager authManager;
 
-    @PostMapping(value = "/rpc/hams/login")
+    @PostMapping(value = "/login")
     public Mono<ResultModel<Object>> login(@RequestBody LoginReqeustModel request, ServerHttpRequest serverHttpRequest) {
         // 塞入ip
         UserLoginModel userLoginModel = request.getData();

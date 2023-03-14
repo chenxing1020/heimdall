@@ -1,6 +1,6 @@
 package com.xchen.heimdall.devtools.service.app.vo.qo;
 
-import com.xchen.heimdall.dubbo.api.common.vo.UserIdVO;
+import com.xchen.heimdall.devtools.service.app.vo.UserIdVO;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.*;
 

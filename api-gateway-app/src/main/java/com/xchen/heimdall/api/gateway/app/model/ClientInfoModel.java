@@ -1,4 +1,4 @@
-package com.xchen.heimdall.dubbo.api.gateway.model;
+package com.xchen.heimdall.api.gateway.app.model;
 
 import lombok.Data;
 

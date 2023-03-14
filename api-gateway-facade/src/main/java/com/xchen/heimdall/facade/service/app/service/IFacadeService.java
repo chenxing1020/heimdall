@@ -1,4 +1,4 @@
-package com.xchen.heimdall.dubbo.api.facade.service;
+package com.xchen.heimdall.facade.service.app.service;
 
 /**
  * facade service的dubbo接口
